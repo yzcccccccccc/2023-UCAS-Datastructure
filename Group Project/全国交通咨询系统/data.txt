@@ -1,0 +1,14 @@
+Train Beijing Harbin G929 10:30 16:02 550
+Train Harbin Beijing G902 08:40 13:48 602
+Train Beijing Shanghai G1 07:00 11:29 631
+Train Beijing Shanghai G153 16:30 22:27 553
+Train Shanghai Beijing G102 06:37 12:38 553
+Train Shanghai Quanzhou D3141 13:18 20:31 384
+Train Quanzhou Shanghai D3136 10:07 17:42 384
+Train Shanghai Changsha K1373 00:00 13:43 150
+Train Wuhan Changsha K769 03:45 08:23 50
+Train Beijing Wuhan K599 05:19 21:14 152
+Train Beijing Wuhan G801 13:05 17:07 623
+Train Wuhan Beijing G422 16:10 21:29 573
+Train Beijing Lanzhou G429 12:50 21:37 700
+Train Lanzhou Lahsa Z21 0:00 23:58 240

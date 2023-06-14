@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkWindow" id="TopWindow">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">National Traffic Consultant</property>
+    <property name="resizable">False</property>
+    <property name="default-width">1200</property>
+    <property name="default-height">1400</property>
+    <signal name="destroy" handler="TopWindow_destroy_cb" swapped="no"/>
+    <child>
+      <object class="GtkFixed">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="Title_label">
+            <property name="width-request">1000</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">National Traffic Consultant</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 28"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">100</property>
+            <property name="y">41</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="Departure_box">
+            <property name="width-request">170</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">215</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="Departure_label">
+            <property name="width-request">120</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Departure City</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="Arrival_label">
+            <property name="width-request">120</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Arrival City</property>
+          </object>
+          <packing>
+            <property name="x">420</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="Arrival_box">
+            <property name="width-request">170</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">550</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="Query_but">
+            <property name="label" translatable="yes">Query</property>
+            <property name="width-request">200</property>
+            <property name="height-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="Query_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">800</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="Route_Label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Route</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">400</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="Route_Ans">
+            <property name="width-request">900</property>
+            <property name="height-request">300</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="editable">False</property>
+            <property name="wrap-mode">char</property>
+            <property name="justification">fill</property>
+            <property name="input-purpose">terminal</property>
+            <property name="monospace">True</property>
+          </object>
+          <packing>
+            <property name="x">215</property>
+            <property name="y">400</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="Load_Title">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Edit Information</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 18"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">750</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="Load_File_but">
+            <property name="label" translatable="yes">Load from File</property>
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="Load_File_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">550</property>
+            <property name="y">750</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_src_city_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Departure City</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">830</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_dest_city_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Arrival City</property>
+          </object>
+          <packing>
+            <property name="x">230</property>
+            <property name="y">830</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_id_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Flight/Train No.</property>
+          </object>
+          <packing>
+            <property name="x">410</property>
+            <property name="y">830</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_dep_time_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Dep Time</property>
+          </object>
+          <packing>
+            <property name="x">590</property>
+            <property name="y">830</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_arr_time_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Arr Time</property>
+          </object>
+          <packing>
+            <property name="x">770</property>
+            <property name="y">830</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_price_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Price</property>
+          </object>
+          <packing>
+            <property name="x">950</property>
+            <property name="y">830</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_src_city_box">
+            <property name="width-request">80</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">900</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_dest_city_box">
+            <property name="name">edit_dest_city_box</property>
+            <property name="width-request">80</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">230</property>
+            <property name="y">900</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_id_box">
+            <property name="width-request">80</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">410</property>
+            <property name="y">900</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_dep_time_box">
+            <property name="width-request">80</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">590</property>
+            <property name="y">900</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_arr_time_box">
+            <property name="width-request">80</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">770</property>
+            <property name="y">900</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_price_box">
+            <property name="width-request">80</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">950</property>
+            <property name="y">900</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_Train_but">
+            <property name="label" translatable="yes">Add Train</property>
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="add_Train_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">980</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_Flight_but">
+            <property name="label" translatable="yes">Add Flight</property>
+            <property name="width-request">138</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="add_Flight_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">410</property>
+            <property name="y">980</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="del_Train_but">
+            <property name="label" translatable="yes">Del Train</property>
+            <property name="width-request">123</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="del_Train_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">980</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="del_Flight_but">
+            <property name="label" translatable="yes">Del Flight</property>
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="del_Flight_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">570</property>
+            <property name="y">980</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="edit_city_label">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">City</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">1080</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="city_box">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">180</property>
+            <property name="y">1080</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_city_but">
+            <property name="label" translatable="yes">Add City</property>
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="add_city_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">410</property>
+            <property name="y">1080</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="del_city_but">
+            <property name="label" translatable="yes">Del City</property>
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="del_city_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">570</property>
+            <property name="y">1080</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="tra_option_label">
+            <property name="width-request">100</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Traffic Mode</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="req_option_label">
+            <property name="width-request">100</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Traffic Req</property>
+          </object>
+          <packing>
+            <property name="x">415</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="tra_option_combo">
+            <property name="width-request">150</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <items>
+              <item translatable="yes">Train</item>
+              <item translatable="yes">Flight</item>
+            </items>
+          </object>
+          <packing>
+            <property name="x">216</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="req_option_combo">
+            <property name="width-request">150</property>
+            <property name="height-request">60</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <items>
+              <item translatable="yes">Time first</item>
+              <item translatable="yes">Cost first</item>
+            </items>
+          </object>
+          <packing>
+            <property name="x">550</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
