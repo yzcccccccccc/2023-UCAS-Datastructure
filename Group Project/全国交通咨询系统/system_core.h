@@ -30,6 +30,13 @@
 
 #define FILE_ERR 1
 
+#define TRAIN_MARK 0
+#define FLIGHT_MARK 1
+
+#define TIME_FIRST 0
+#define COST_FIRST 1
+#define INTERCHANGE_FIRST 2
+
 typedef struct RouteInfo{
     char dep_city[City_MAXLEN], arr_city[City_MAXLEN];
     char id[ID_MAXLEN];
@@ -40,7 +47,7 @@ typedef struct RouteInfo{
 
 void Print_info(RouteInfo info){
     printf("%s %s %s %d %d %d %s\n", 
-        info.dep_city, info.arr_city, info.id, info.dep_time, info.arr_time, info.price, (info.mode == 1) ? "Train" : "Flight");
+        info.dep_city, info.arr_city, info.id, info.dep_time, info.arr_time, info.price, (info.mode == TRAIN_MARK) ? "Train" : "Flight");
     return;
 }
 
@@ -71,7 +78,9 @@ typedef struct EdgeNode{
 }EdgeNode;
 
 int cmp_Edge(EdgeInfo a, EdgeInfo b){
-    return a.u == b.u && a.v == b.v && a.type == b.type && a.price == b.price && a.dep_time == b.dep_time && a.duration == b.duration && !strcmp(a.id, b.id);
+    return a.u == b.u && a.v == b.v && a.type == b.type 
+            && a.price == b.price && a.dep_time == b.dep_time 
+            && a.duration == b.duration && !strcmp(a.id, b.id);
 }
 
 typedef struct VNode{
@@ -96,7 +105,7 @@ void Print_graph(Graph G){
             while (p != NULL){
                 if (G.flags[p->elem.v])
                     printf("%10s %10s %10s %10d %10d %10d %10s\n", 
-                        G.city_list[i], G.city_list[p->elem.v], p->elem.id, p->elem.dep_time, p->elem.arr_time, p->elem.price, (p->elem.type == 1) ? "Train" : "Flight");
+                        G.city_list[i], G.city_list[p->elem.v], p->elem.id, p->elem.dep_time, p->elem.arr_time, p->elem.price, (p->elem.type == TRAIN_MARK) ? "Train" : "Flight");
                 p = p->next;
             }
         }
@@ -149,12 +158,17 @@ int Add_Route(RouteInfo info){
         q->next = p;
     }
 
-    printf("%d %d\n", u, v);
+    //printf("%d %d\n", u, v);
     return 0;
 }
 
+void Print_edge(EdgeInfo info){
+    printf("%d %d %s %d %d %d %s\n", 
+        info.u, info.v, info.id, info.dep_time, info.arr_time, info.price, (info.type == TRAIN_MARK) ? "Train" : "Flight");
+}
+
 int Del_Route(RouteInfo info){
-    printf("Del Route\n");
+    //printf("Del Route\n");
     Graph *G = &GPH;
     
     int vnum = G->VNum;
@@ -176,14 +190,17 @@ int Del_Route(RouteInfo info){
     del_edge.v = v;
     del_edge.dep_time = info.dep_time;
     del_edge.arr_time = info.arr_time;
-    del_edge.duration = info.dep_time - info.arr_time;
+    del_edge.duration = info.arr_time - info.dep_time;
     del_edge.price = info.price;
     del_edge.type = info.mode;
     strcpy(del_edge.id, info.id);
+    //printf("%s\n", del_edge.id);
 
     EdgeNode *p = G->verx[u].first_edge, *q;
-
+    q = p;
+    //Print_edge(del_edge);
     while (p != NULL){
+        //Print_edge(p->elem);
         if (cmp_Edge(p->elem, del_edge)){
             if (p == G->verx[u].first_edge){
                 G->verx[u].first_edge = p->next;
@@ -204,13 +221,13 @@ int Add_City(char name[]){
     Graph *G = &GPH;
 
     int vnum = G->VNum;
-    int i, finded;
+    int i, found;
 
-    finded = 0;
+    found = 0;
     for (i = 0; i < vnum; i++){
         if (strcmp(G->city_list[i], name) == 0){
             if (G->flags[i] == 0){
-                finded = 1;
+                found = 1;
                 break;
             }
             else{
@@ -219,7 +236,7 @@ int Add_City(char name[]){
         }
     }
 
-    if (finded){
+    if (found){
         G->flags[i] = 1;
     }
     else{
@@ -244,17 +261,18 @@ int Del_City(char name[]){
 
 /*
     DFS: Brute Force
-    tra: 1 for Train,   2 for Flight
-    req: 1 for Time,    2 for Cost 
+    tra: 0 for Train,   1 for Flight
+    req: 0 for Time,    1 for Cost,         2 for Interchange 
 */
+
 EdgeInfo Route_tmp[Route_Len], Route_Ans[Route_Len];
 int src, dest, tra_mode, tra_req;
 int Ans, Ans_Len, Ans_Day;          // Ans could be the cost(money) and the time
-int Ans_cost, Ans_time;
+int Ans_cost, Ans_time, Ans_change;
 int Visited[Verx_MAXNUM];
-void RouteSearch(int cur, int cost, int time, int current_time, int len, int day){
-    //printf("%s %d\n", GPH.city_list[cur], day);
-    int judge = (tra_req == 0) ? time : cost;
+void RouteSearch(int cur, int cost, int time, int change, int current_time, int len, int day, char *last_train){
+    //printf("%s %d\n", GPH.city_list[cur], change);
+    int judge = (tra_req == TIME_FIRST) ? time : (tra_req == COST_FIRST) ? cost : change;
     if (judge > Ans)    return;
     if (cur == dest){
         if (judge < Ans){
@@ -263,12 +281,13 @@ void RouteSearch(int cur, int cost, int time, int current_time, int len, int day
             Ans_time = time;
             Ans_Len = len;
             Ans_Day = day;
+            Ans_change = change;
             memcpy(Route_Ans, Route_tmp, sizeof(Route_tmp));
         }
         return;
     }
     EdgeNode *p = GPH.verx[cur].first_edge;
-    for (int update_cost, update_time, update_day; p != NULL; p = p->next){
+    for (int update_cost, update_time, update_day, update_change; p != NULL; p = p->next){
         if (!Visited[p->elem.v] && p->elem.type == tra_mode){
             Route_tmp[len] = p->elem;
             Visited[p->elem.v] = 1;
@@ -281,7 +300,11 @@ void RouteSearch(int cur, int cost, int time, int current_time, int len, int day
             else
                 update_time = time + (p->elem.dep_time - current_time) + p->elem.duration + update_day * DAY_MINUTES;
             update_cost = cost + p->elem.price;
-            RouteSearch(p->elem.v, update_cost, update_time, p->elem.arr_time, len + 1, day + update_day);
+            if (last_train != NULL && strcmp(last_train, p->elem.id))
+                update_change = change + 1;
+            else
+                update_change = change;
+            RouteSearch(p->elem.v, update_cost, update_time, update_change, p->elem.arr_time, len + 1, day + update_day, p->elem.id);
             Visited[p->elem.v] = 0;
         }
     }
@@ -308,9 +331,11 @@ int DFS(char dep_city[], char arr_city[], int tra, int req){
     src = u;
     tra_mode = tra;
     tra_req = req;
+    //printf("%d %d %d %d\n", dest, src, tra_mode, tra_req);
     memset(Visited, 0, sizeof(Visited));
     Visited[src] = 1;
-    RouteSearch(u, 0, 0, 0, 0, 0);
+    RouteSearch(u, 0, 0, 0, 0, 0, 0, NULL);
+    //printf("Search Done\n");
     if (Ans == INF)
         return NO_ROUTE_AVAILABLE;
     else
@@ -320,7 +345,7 @@ int DFS(char dep_city[], char arr_city[], int tra, int req){
 int LoadFile(){
     FILE *p = fopen("data.txt", "r");
     if (p == NULL){
-        printf("File Error\n");
+        //printf("File Error\n");
         return FILE_ERR;
     }
     char tra_mode[MAXLEN];
@@ -334,11 +359,11 @@ int LoadFile(){
         );
         info.arr_time = TimeConvert(arr_time);
         info.dep_time = TimeConvert(dep_time);
-        info.mode = tra_mode[0] == 'T' ? 1 : 0;
+        info.mode = tra_mode[0] == 'T' ? TRAIN_MARK : FLIGHT_MARK;
         Add_City(info.arr_city);
         Add_City(info.dep_city);
         Add_Route(info);
-        Print_info(info);
+        //Print_info(info);
     }
     return 0;
 }

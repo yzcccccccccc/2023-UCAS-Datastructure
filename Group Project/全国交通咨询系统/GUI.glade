@@ -470,13 +470,29 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <items>
-              <item translatable="yes">Time first</item>
-              <item translatable="yes">Cost first</item>
+              <item translatable="yes">TIME FIRST</item>
+              <item translatable="yes">COST FIRST</item>
+              <item translatable="yes">CHANGE</item>
             </items>
           </object>
           <packing>
             <property name="x">550</property>
             <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="View_but">
+            <property name="label" translatable="yes">View Info in System</property>
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="View_but_clicked_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">800</property>
+            <property name="y">750</property>
           </packing>
         </child>
       </object>
